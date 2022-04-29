@@ -5,32 +5,19 @@ using UnityEngine;
 
 public class State_gettingAllPlayersTurns : IState
 {
-    int _amountOfPlayersWhoseActionsWeGot;
     public List<Player> _players;
     public statemachine _statemachine;
 
     List<Queue<actionBase>> _actionsOfAllPlayers;
 
-    public State_gettingAllPlayersTurns(statemachine statemachine, List<Player> players, List<Queue<actionBase>> actionsOfAllPlayers = null)
+    public State_gettingAllPlayersTurns(statemachine statemachine, List<Player> players)
     {
         _statemachine = statemachine;
-        if (actionsOfAllPlayers == null)
-        {
-            _actionsOfAllPlayers = new List<Queue<actionBase>>();
-        }
-        else
-        {
-            _actionsOfAllPlayers = actionsOfAllPlayers;
-        }
         _players = players;
     }
 
     public void Enter()
     {
-        if (_amountOfPlayersWhoseActionsWeGot == )
-        {
-
-        }
     }
 
     public void Execute()
@@ -61,7 +48,8 @@ public class State_gettingAllPlayersTurns : IState
         }
         else
         {
-            State_gettingPlayersTurn nextState = new State_gettingPlayersTurn(_statemachine, _players[amountOfTurnsAdded]);
+            State_gettingPlayersTurn nextState = new State_gettingPlayersTurn(_statemachine, _players[amountOfTurnsAdded], this);
+            _statemachine.changeState(nextState);
         }
     }
 }

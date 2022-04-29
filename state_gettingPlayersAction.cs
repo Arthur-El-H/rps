@@ -24,18 +24,7 @@ public class State_gettingPlayersAction: IState
     public void Execute()
     {
         //At the end:
-        
-        _stateToReturnTo._actionsOfPlayer.Enqueue(_action);
-        if (isActionQueueFull(_stateToReturnTo._actionsOfPlayer))
-        {
-            // TODO check somehow if there is another player
-        }
-        _statemachine.changeState(_stateToReturnTo);
-    }
-
-    private bool isActionQueueFull(Queue<actionBase> _actionsOfPlayer)
-    {
-        return (_player.maxActionsPerTurn <= _actionsOfPlayer.Count);
+        _stateToReturnTo.addPlayersAction(_action);
     }
 
     public void Exit()

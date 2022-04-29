@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,27 +6,35 @@ using UnityEngine;
 public class State_gettingPlayersTurn : IState
 {
     State_gettingAllPlayersTurns _stateToReturnTo;
-    int _amountOfActionsAllowed; //get from player
-    int _amountOfActions; //get from player
     public Player _player;
     public statemachine _statemachine;
 
     public Queue<actionBase> _actionsOfPlayer;
     List<actionCapabilityBase> _displayedActionCapabilities;
 
-    public State_gettingPlayersTurn(statemachine statemachine, Player player, Queue<actionBase> actionsOfPlayer = null)
+    public State_gettingPlayersTurn(statemachine statemachine, Player player, State_gettingAllPlayersTurns stateToReturnTo)
     {
         _statemachine = statemachine;
-        if (actionsOfPlayer == null)
+        _stateToReturnTo = stateToReturnTo;
+        _player = player;
+        //TODO get amountOfAction und amountOfActionALlowed
+    }
+
+    public void addPlayersAction(actionBase action)
+    {
+        _actionsOfPlayer.Enqueue(action);
+        if (isActionQueueFull(_actionsOfPlayer))
         {
-            _actionsOfPlayer = new Queue<actionBase>();
+            _stateToReturnTo.addPlayersTurnToCompleteTurn(_actionsOfPlayer);
         }
         else
         {
-            _actionsOfPlayer = actionsOfPlayer;
+            _statemachine.changeState(this);
         }
-        _player = player;
-        //TODO get amountOfAction und amountOfActionALlowed
+    }
+    private bool isActionQueueFull(Queue<actionBase> _actionsOfPlayer)
+    {
+        return (_player.maxActionsPerTurn <= _actionsOfPlayer.Count);
     }
 
     public void Enter()
@@ -54,7 +63,6 @@ public class State_gettingPlayersTurn : IState
                 State_gettingPlayersAction state_gettingAction = new State_gettingPlayersAction(_statemachine, _player, this);
                 _statemachine.changeState(state_gettingAction);
                 break;
-
 
 
             default:
