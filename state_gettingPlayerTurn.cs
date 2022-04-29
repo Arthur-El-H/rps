@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class State_gettingPlayersTurn : IState
 {
+    State_gettingAllPlayersTurns _stateToReturnTo;
     int _amountOfActionsAllowed; //get from player
     int _amountOfActions; //get from player
     public Player _player;
@@ -12,7 +13,7 @@ public class State_gettingPlayersTurn : IState
     public Queue<actionBase> _actionsOfPlayer;
     List<actionCapabilityBase> _displayedActionCapabilities;
 
-    public State_gettingPlayersTurn(statemachine statemachine, Player player, Queue<actionBase> actionsOfPlayer)
+    public State_gettingPlayersTurn(statemachine statemachine, Player player, Queue<actionBase> actionsOfPlayer = null)
     {
         _statemachine = statemachine;
         if (actionsOfPlayer == null)
@@ -34,6 +35,8 @@ public class State_gettingPlayersTurn : IState
 
     public void Execute()
     {
+        //At end
+        _stateToReturnTo.addPlayersTurnToCompleteTurn(_actionsOfPlayer);
     }
 
     public void Exit()
@@ -48,7 +51,7 @@ public class State_gettingPlayersTurn : IState
         {
             case InputManager.actionClickedType:
                 ActionInput actionInput = input as ActionInput;
-                State_gettingPlayersAction state_gettingAction = new State_gettingPlayersAction(_statemachine, _actionsOfPlayer, _player);
+                State_gettingPlayersAction state_gettingAction = new State_gettingPlayersAction(_statemachine, _player, this);
                 _statemachine.changeState(state_gettingAction);
                 break;
 
@@ -59,3 +62,4 @@ public class State_gettingPlayersTurn : IState
         }
     }
 }
+

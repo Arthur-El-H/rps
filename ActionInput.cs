@@ -7,5 +7,4 @@ public class ActionInput : IInput
     {
         return InputManager.actionClickedType;
     }
-
 }

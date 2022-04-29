@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     int health;
+    public int maxActionsPerTurn;
     List<actionCapabilityBase> possibleActions;
 
     internal void displayPossibleActions()
