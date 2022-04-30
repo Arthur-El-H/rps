@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Turn : MonoBehaviour
 {
-    List<Queue<actionBase>> playerActions;
+    List<Queue<ActionBase>> playerActions;
 
     public void playOut()
     {
@@ -14,20 +14,20 @@ public class Turn : MonoBehaviour
         while (amountOfPlayers != amountOfPlayersWhoseTurnIsFinished)
         {
             amountOfPlayersWhoseTurnIsFinished = 0;
-            foreach ( Queue<actionBase> actionQueue in playerActions )
+            foreach ( Queue<ActionBase> actionQueue in playerActions )
             {
                 if (isEmpty(actionQueue))
                 {
                     amountOfPlayersWhoseTurnIsFinished++;
                     return;
                 }
-                actionBase nextAction = actionQueue.Dequeue();
+                ActionBase nextAction = actionQueue.Dequeue();
                 nextAction.act(); //TODO AWAIT
             }
         }
     }
 
-    private bool isEmpty(Queue<actionBase> queue)
+    private bool isEmpty(Queue<ActionBase> queue)
     {
         if (queue.Count == 0)
         {

@@ -2,7 +2,7 @@
 
 public class ActionInput : IInput
 {
-    public actionBase action;
+    public ActionBase action;
     public char getInputType()
     {
         return InputManager.actionClickedType;

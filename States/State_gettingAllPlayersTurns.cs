@@ -8,7 +8,7 @@ public class State_gettingAllPlayersTurns : IState
     public List<Player> _players;
     public statemachine _statemachine;
 
-    List<Queue<actionBase>> _actionsOfAllPlayers;
+    List<Queue<ActionBase>> _actionsOfAllPlayers;
 
     public State_gettingAllPlayersTurns(statemachine statemachine, List<Player> players)
     {
@@ -38,13 +38,14 @@ public class State_gettingAllPlayersTurns : IState
         }
     }
 
-    public void addPlayersTurnToCompleteTurn(Queue<actionBase> actionsOfPlayer)
+    public void addPlayersTurnToCompleteTurn(Queue<ActionBase> actionsOfPlayer)
     {
         _actionsOfAllPlayers.Add(actionsOfPlayer);
         int amountOfTurnsAdded = _actionsOfAllPlayers.Count;
         if (amountOfTurnsAdded >= _players.Count)
         {
-            // Change statemachine to "playingOutTurn"
+            State_playingOutTurn nextState = new State_playingOutTurn(_statemachine, _actionsOfAllPlayers);
+            _statemachine.changeState(nextState);
         }
         else
         {
