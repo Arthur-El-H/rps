@@ -35,7 +35,7 @@ internal class State_playingOutTurn: IState
                 }
                 else
                 {
-                    actionTasks.Add(actionQueue.Dequeue().Act());
+                    actionTasks.Add(actionQueue.Dequeue().act());
                 }
             }
             if (emptyQueues == amountOfQueues)

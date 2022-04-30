@@ -14,7 +14,7 @@ public class Act_Move: ActionBase
         _goals = goals;
     }
 
-    public async override Task Act()
+    public async Task act()
     {
         foreach (Tile tile in _goals)
         {

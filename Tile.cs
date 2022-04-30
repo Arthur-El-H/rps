@@ -7,6 +7,8 @@ public class Tile : MonoBehaviour
     int xValueOnMatrix;
     int yValueOnMatrix;
 
+    public Vector2 position;
+
     List<Player> playersOnTile;
     bool isPlayerOnTile;
 

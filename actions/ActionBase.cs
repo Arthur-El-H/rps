@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public abstract class ActionBase : MonoBehaviour
+public interface ActionBase 
 {
-    public abstract Task Act();
+    //public abstract Task Act();
+    public Task act();
 }

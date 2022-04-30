@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
+
 
 public class Turn : MonoBehaviour
 {
     List<Queue<ActionBase>> playerActions;
 
-    public void playOut()
+    public async void playOut()
     {
         int amountOfPlayers = playerActions.Count;
         int amountOfPlayersWhoseTurnIsFinished = 0;
@@ -22,7 +24,8 @@ public class Turn : MonoBehaviour
                     return;
                 }
                 ActionBase nextAction = actionQueue.Dequeue();
-                nextAction.act(); //TODO AWAIT
+                Task t = nextAction.act(); //TODO AWAIT
+                await(t);
             }
         }
     }

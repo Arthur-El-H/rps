@@ -6,10 +6,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    int health;
+    int health = 10;
     public int maxActionsPerTurn;
     List<actionCapabilityBase> possibleActions;
     private Tile _currentTile;
+
+    private void Awake()
+    {
+        //possibleActions.Add(new )
+    }
 
     internal void displayPossibleActions()
     {
