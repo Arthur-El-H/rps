@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Act_Move: ActionBase
+public class Act_Move: IAction
 {
     Player _player;
     List<Tile> _goals;

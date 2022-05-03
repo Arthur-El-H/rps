@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 internal class State_playingOutTurn: IState
 {
     private statemachine _statemachine;
-    private List<Queue<ActionBase>> _actionsOfAllPlayers;
+    private List<Queue<IAction>> _actionsOfAllPlayers;
 
-    public State_playingOutTurn(statemachine statemachine, List<Queue<ActionBase>> actionsOfAllPlayers)
+    public State_playingOutTurn(statemachine statemachine, List<Queue<IAction>> actionsOfAllPlayers)
     {
         this._statemachine = statemachine;
         this._actionsOfAllPlayers = actionsOfAllPlayers;
@@ -27,7 +27,7 @@ internal class State_playingOutTurn: IState
 
         while (!isQueuesEmpty)
         {
-            foreach (Queue<ActionBase> actionQueue in _actionsOfAllPlayers)
+            foreach (Queue<IAction> actionQueue in _actionsOfAllPlayers)
             {
                 if (actionQueue.Count == 0)
                 {

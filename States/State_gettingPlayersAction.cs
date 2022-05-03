@@ -6,7 +6,7 @@ using UnityEngine;
 public class State_gettingPlayersAction: IState
 {
     State_gettingPlayersTurn _stateToReturnTo;
-    ActionBase _action;
+    IAction _action;
     statemachine _statemachine;
     Player _player;
 

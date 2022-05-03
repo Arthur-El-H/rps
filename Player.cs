@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 {
     int health = 10;
     public int maxActionsPerTurn;
-    List<actionCapabilityBase> possibleActions;
+    List<IActionCapability> possibleActions;
     private Tile _currentTile;
 
     private void Awake()

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public class Turn : MonoBehaviour
 {
-    List<Queue<ActionBase>> playerActions;
+    List<Queue<IAction>> playerActions;
 
     public async void playOut()
     {
@@ -16,21 +16,21 @@ public class Turn : MonoBehaviour
         while (amountOfPlayers != amountOfPlayersWhoseTurnIsFinished)
         {
             amountOfPlayersWhoseTurnIsFinished = 0;
-            foreach ( Queue<ActionBase> actionQueue in playerActions )
+            foreach ( Queue<IAction> actionQueue in playerActions )
             {
                 if (isEmpty(actionQueue))
                 {
                     amountOfPlayersWhoseTurnIsFinished++;
                     return;
                 }
-                ActionBase nextAction = actionQueue.Dequeue();
+                IAction nextAction = actionQueue.Dequeue();
                 Task t = nextAction.act(); //TODO AWAIT
                 await(t);
             }
         }
     }
 
-    private bool isEmpty(Queue<ActionBase> queue)
+    private bool isEmpty(Queue<IAction> queue)
     {
         if (queue.Count == 0)
         {

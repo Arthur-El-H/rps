@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public interface ActionBase 
+public interface IAction 
 {
     //public abstract Task Act();
     public Task act();

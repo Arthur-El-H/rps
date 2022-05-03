@@ -8,7 +8,7 @@ public class State_gettingAllPlayersTurns : IState
     public List<Player> _players;
     public statemachine _statemachine;
 
-    List<Queue<ActionBase>> _actionsOfAllPlayers;
+    List<Queue<IAction>> _actionsOfAllPlayers;
 
     public State_gettingAllPlayersTurns(statemachine statemachine, List<Player> players)
     {
@@ -38,7 +38,7 @@ public class State_gettingAllPlayersTurns : IState
         }
     }
 
-    public void addPlayersTurnToCompleteTurn(Queue<ActionBase> actionsOfPlayer)
+    public void addPlayersTurnToCompleteTurn(Queue<IAction> actionsOfPlayer)
     {
         _actionsOfAllPlayers.Add(actionsOfPlayer);
         int amountOfTurnsAdded = _actionsOfAllPlayers.Count;

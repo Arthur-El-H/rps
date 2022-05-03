@@ -9,8 +9,8 @@ public class State_gettingPlayersTurn : IState
     public Player _player;
     public statemachine _statemachine;
 
-    public Queue<ActionBase> _actionsOfPlayer;
-    List<actionCapabilityBase> _displayedActionCapabilities;
+    public Queue<IAction> _actionsOfPlayer;
+    List<IActionCapability> _displayedActionCapabilities;
 
     public State_gettingPlayersTurn(statemachine statemachine, Player player, State_gettingAllPlayersTurns stateToReturnTo)
     {
@@ -20,7 +20,7 @@ public class State_gettingPlayersTurn : IState
         //TODO get amountOfAction und amountOfActionALlowed
     }
 
-    public void addPlayersAction(ActionBase action)
+    public void addPlayersAction(IAction action)
     {
         _actionsOfPlayer.Enqueue(action);
         if (isActionQueueFull(_actionsOfPlayer))
@@ -32,7 +32,7 @@ public class State_gettingPlayersTurn : IState
             _statemachine.changeState(this);
         }
     }
-    private bool isActionQueueFull(Queue<ActionBase> _actionsOfPlayer)
+    private bool isActionQueueFull(Queue<IAction> _actionsOfPlayer)
     {
         return (_player.maxActionsPerTurn <= _actionsOfPlayer.Count);
     }
