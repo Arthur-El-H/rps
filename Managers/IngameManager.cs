@@ -7,10 +7,10 @@ public class IngameManager : MonoBehaviour
 {
     public statemachine _statemachine;
     [SerializeField] Map _map;
-    [SerializeField] GameObject _Pref_Player;
+    [SerializeField] GameObject _pref_player;
     [SerializeField] int _amountOfPlayers = 2;
 
-    List<Player> _players;
+    List<Player> _players = new List<Player>();
 
     void Start()
     {
@@ -26,11 +26,11 @@ public class IngameManager : MonoBehaviour
             switch (i)
             {
                 case 0:
-                    _players.Add( Instantiate(_Pref_Player, _map.getTile(0, 0).position, Quaternion.identity).
+                    _players.Add( Instantiate(_pref_player, _map.getTile(0, 0).position, Quaternion.identity).
                     GetComponent<Player>());
                     break;
                 case 1:
-                    _players.Add(Instantiate(_Pref_Player, _map.getTile(8, 8).position, Quaternion.identity).
+                    _players.Add(Instantiate(_pref_player, _map.getTile(7, 7).position, Quaternion.identity).
                     GetComponent<Player>());
                     break;
                 default:

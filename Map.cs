@@ -5,20 +5,18 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    // Start is called before the first frame update
-    Tile[,] _tilesMatrix; //= new Tile[5, 3];
-    //myFloats[0, 0] = 1.0f;
+    Tile[,] _tilesMatrix;
 
     [SerializeField] int _length = 8;
     [SerializeField] int _height = 8;
 
 
-    [SerializeField] float _tileLength;
+    [SerializeField] float _tileLength = 1;
     [SerializeField] Vector2 _zeroTilePos;
 
     [SerializeField] GameObject _Pref_tile;
 
-    internal void init()
+    internal void init( )
     {
         constructMap();
     }
@@ -26,6 +24,7 @@ public class Map : MonoBehaviour
     private void Awake()
     {
         _tilesMatrix = new Tile[_length, _height];
+        _zeroTilePos = new Vector2(-4, 4);
     }
 
     void Start()
@@ -45,7 +44,7 @@ public class Map : MonoBehaviour
                 xPosOfTile += _tileLength;
             }
             xPosOfTile = _zeroTilePos.x;
-            yPosOfTile += _tileLength;
+            yPosOfTile -= _tileLength;
         }
     }
 
