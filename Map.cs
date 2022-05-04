@@ -51,7 +51,7 @@ public class Map : MonoBehaviour
     private Tile createTile(float xPosOfTile, float yPosOfTile)
     {
         var pos = new Vector2(xPosOfTile, yPosOfTile);
-        Tile newTile = Instantiate(_Pref_tile, pos, Quaternion.identity).GetComponent<Tile>();
+        Tile newTile = Instantiate(_Pref_tile, pos, Quaternion.identity, this.transform).GetComponent<Tile>();
         newTile.position = pos;
         return newTile;
     }

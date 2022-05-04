@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class ActionInput : IInput
 {
-    public IAction action;
+    public const char _type = 'b';
+    public IActionCapability _actionCapability;
+
     public char getInputType()
     {
-        return InputManager.actionClickedType;
+        return _type;
     }
 }

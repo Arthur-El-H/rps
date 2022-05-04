@@ -7,7 +7,8 @@ public class IngameManager : MonoBehaviour
 {
     public statemachine _statemachine;
     [SerializeField] Map _map;
-    [SerializeField] GameObject _pref_player;
+
+    [SerializeField] public GameObject _pref_player;
     [SerializeField] int _amountOfPlayers = 2;
 
     List<Player> _players = new List<Player>();
@@ -17,6 +18,7 @@ public class IngameManager : MonoBehaviour
         _map.init();
         setPlayersOnMap();
         _statemachine = new statemachine();
+        _statemachine.changeState(new State_gettingAllPlayersTurns(_statemachine, _players));
     }
 
     private void setPlayersOnMap()

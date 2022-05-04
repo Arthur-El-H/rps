@@ -18,6 +18,10 @@ public class State_gettingAllPlayersTurns : IState
 
     public void Enter()
     {
+        _actionsOfAllPlayers = new List<Queue<IAction>>();
+        int amountOfTurnsAdded = _actionsOfAllPlayers.Count;
+        State_gettingPlayersTurn nextState = new State_gettingPlayersTurn(_statemachine, _players[amountOfTurnsAdded], this);
+        _statemachine.changeState(nextState);
     }
 
     public void Execute()

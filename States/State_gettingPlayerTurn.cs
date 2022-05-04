@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class State_gettingPlayersTurn : IState
-{
+{    
     State_gettingAllPlayersTurns _stateToReturnTo;
     public Player _player;
     public statemachine _statemachine;
@@ -58,9 +58,9 @@ public class State_gettingPlayersTurn : IState
         char inputType = input.getInputType();
         switch (inputType)
         {
-            case InputManager.actionClickedType:
+            case ActionInput._type:
                 ActionInput actionInput = input as ActionInput;
-                State_gettingPlayersAction state_gettingAction = new State_gettingPlayersAction(_statemachine, _player, this);
+                State_gettingPlayersAction state_gettingAction = new State_gettingPlayersAction(_statemachine, _player, this, actionInput._actionCapability);
                 _statemachine.changeState(state_gettingAction);
                 break;
 

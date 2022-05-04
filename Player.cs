@@ -11,14 +11,21 @@ public class Player : MonoBehaviour
     List<IActionCapability> possibleActions;
     private Tile _currentTile;
 
+    Vector2 _testPlaceOfCap = new Vector2(-7,9);
+
     private void Awake()
     {
-        //possibleActions.Add(new )
+        possibleActions = new List<IActionCapability>();
+        possibleActions.Add(new ActCap_Move());
     }
 
     internal void displayPossibleActions()
     {
-        throw new NotImplementedException();
+        foreach (var actionCap in possibleActions)
+        {
+            GameObject btn = actionCap.getActionDisplayObject();
+            btn.GetComponent<ActCap_Move_Btn>().moveBtn(_testPlaceOfCap);
+        }
     }
 
     internal void undisplayPossibleActions()

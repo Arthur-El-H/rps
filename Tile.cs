@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,5 +22,15 @@ public class Tile : MonoBehaviour
     {
         playersOnTile.Remove(player);
         isPlayerOnTile = false;
+    }
+
+    internal void demark()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void mark()
+    {
+        throw new NotImplementedException();
     }
 }

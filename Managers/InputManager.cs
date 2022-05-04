@@ -8,5 +8,7 @@ public class InputManager : MonoBehaviour
     public const char tileClickedType = 'b';
     public const char backBtnClickedType = 'c';
     public const char enterBtnClickedType = 'd';
+    public const char _ActionInputType = 'b';
+
 
 }

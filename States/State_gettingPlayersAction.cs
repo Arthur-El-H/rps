@@ -6,12 +6,14 @@ using UnityEngine;
 public class State_gettingPlayersAction: IState
 {
     State_gettingPlayersTurn _stateToReturnTo;
+    IActionCapability _actionCapability;
     IAction _action;
     statemachine _statemachine;
     Player _player;
 
-    public State_gettingPlayersAction(statemachine statemachine, Player player, State_gettingPlayersTurn stateToReturnTo)
+    public State_gettingPlayersAction(statemachine statemachine, Player player, State_gettingPlayersTurn stateToReturnTo, IActionCapability actionCapability)
     {
+        _actionCapability = actionCapability;
         _statemachine = statemachine;
         _stateToReturnTo = stateToReturnTo;
         _player = player;
@@ -22,17 +24,20 @@ public class State_gettingPlayersAction: IState
     }
 
     public void Execute()
-    {
-        //At the end:
-        _stateToReturnTo.addPlayersAction(_action);
+    {        
     }
 
     public void Exit()
-    {
+    {        
     }
 
     public void handleInput(IInput input)
     {
-        throw new System.NotImplementedException();
+        _actionCapability.handleInput(input);
+    }
+
+    internal void finishAction()
+    {
+        _stateToReturnTo.addPlayersAction(_action);
     }
 }
