@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     List<IActionCapability> possibleActions;
     private Tile _currentTile;
 
-    Vector2 _testPlaceOfCap = new Vector2(-7,9);
+    Vector2 _testPlaceOfCap = new Vector2(-7,3);
 
     private void Awake()
     {
@@ -24,7 +24,8 @@ public class Player : MonoBehaviour
         foreach (var actionCap in possibleActions)
         {
             GameObject btn = actionCap.getActionDisplayObject();
-            btn.GetComponent<ActCap_Move_Btn>().moveBtn(_testPlaceOfCap);
+            //btn.GetComponent<ActCap_Move_Btn>().moveBtn(_testPlaceOfCap);
+            ButtonManager.moveBtn(btn, _testPlaceOfCap);
         }
     }
 
