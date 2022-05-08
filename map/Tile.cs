@@ -5,23 +5,22 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    int xValueOnMatrix;
-    int yValueOnMatrix;
+    public Vector2 _worldPosition;
+    public Vector2 _matrixPosition;
 
-    public Vector2 position;
-
-    List<Player> playersOnTile;
-    bool isPlayerOnTile;
+    List<Player> _playersOnTile;
+    public bool _isPlayerOnTile()
+    {
+        return (_playersOnTile.Count != 0);
+    }
 
     public void registerPlayer(Player player)
     {
-        playersOnTile.Add(player);
-        isPlayerOnTile = true;
+        _playersOnTile.Add(player);
     }
     public void unregisterPlayer(Player player)
     {
-        playersOnTile.Remove(player);
-        isPlayerOnTile = false;
+        _playersOnTile.Remove(player);
     }
 
     internal void demark()

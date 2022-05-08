@@ -16,7 +16,7 @@ public class State_gettingAllPlayersTurns : IState
         _players = players;
     }
 
-    public void Enter()
+    public void init()
     {
         _actionsOfAllPlayers = new List<Queue<IAction>>();
         int amountOfTurnsAdded = _actionsOfAllPlayers.Count;
@@ -42,7 +42,7 @@ public class State_gettingAllPlayersTurns : IState
         }
     }
 
-    public void addPlayersTurnToCompleteTurn(Queue<IAction> actionsOfPlayer)
+    public void addPlayersTurn(Queue<IAction> actionsOfPlayer)
     {
         _actionsOfAllPlayers.Add(actionsOfPlayer);
         int amountOfTurnsAdded = _actionsOfAllPlayers.Count;

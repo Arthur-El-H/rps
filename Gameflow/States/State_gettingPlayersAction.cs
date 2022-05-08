@@ -19,7 +19,7 @@ public class State_gettingPlayersAction: IState
         _player = player;
     }
 
-    public void Enter()
+    public void init()
     {
     }
 

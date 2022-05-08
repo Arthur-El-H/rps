@@ -1,6 +1,6 @@
 ﻿public interface IState
 {
-    void Enter();
+    void init();
     void Execute();
     void Exit();
     void handleInput(IInput input);

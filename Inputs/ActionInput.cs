@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActionInput : IInput
 {
-    public const char _type = 'b';
+    public const char _type = InputManager.actionInputType;
     public IActionCapability _actionCapability;
 
     public char getInputType()

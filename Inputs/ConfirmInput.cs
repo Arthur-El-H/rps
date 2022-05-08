@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class ConfirmInput : IInput
 {
-    public IAction _action;
-    public static char _type = 'c';
+    public static char _type = InputManager.confirmBtnInputType;
 
     public ConfirmInput()
     {

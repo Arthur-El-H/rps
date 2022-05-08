@@ -8,7 +8,7 @@
             currentState.Exit();
 
         currentState = newState;
-        currentState.Enter();
+        currentState.init();
     }
 
     public void updateStateMachine()

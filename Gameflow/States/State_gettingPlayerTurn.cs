@@ -25,7 +25,7 @@ public class State_gettingPlayersTurn : IState
         _actionsOfPlayer.Enqueue(action);
         if (isActionQueueFull(_actionsOfPlayer))
         {
-            _stateToReturnTo.addPlayersTurnToCompleteTurn(_actionsOfPlayer);
+            _stateToReturnTo.addPlayersTurn(_actionsOfPlayer);
         }
         else
         {
@@ -37,7 +37,7 @@ public class State_gettingPlayersTurn : IState
         return (_player.maxActionsPerTurn <= _actionsOfPlayer.Count);
     }
 
-    public void Enter()
+    public void init()
     {
         _player.displayPossibleActions();
     }
@@ -45,7 +45,7 @@ public class State_gettingPlayersTurn : IState
     public void Execute()
     {
         //At end
-        _stateToReturnTo.addPlayersTurnToCompleteTurn(_actionsOfPlayer);
+        _stateToReturnTo.addPlayersTurn(_actionsOfPlayer);
     }
 
     public void Exit()

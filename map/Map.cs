@@ -18,17 +18,9 @@ public class Map : MonoBehaviour
 
     internal void init( )
     {
-        constructMap();
-    }
-
-    private void Awake()
-    {
         _tilesMatrix = new Tile[_length, _height];
         _zeroTilePos = new Vector2(-4, 4);
-    }
-
-    void Start()
-    {
+        constructMap();
     }
 
     private void constructMap()
@@ -40,7 +32,8 @@ public class Map : MonoBehaviour
         {
             for (int j = 0; j < _length; j++)
             {
-                _tilesMatrix[j, i] = createTile(xPosOfTile,yPosOfTile);
+                _tilesMatrix[j, i] = createTile(new Vector2(xPosOfTile, yPosOfTile),
+                                                new Vector2(j,i) );
                 xPosOfTile += _tileLength;
             }
             xPosOfTile = _zeroTilePos.x;
@@ -48,11 +41,11 @@ public class Map : MonoBehaviour
         }
     }
 
-    private Tile createTile(float xPosOfTile, float yPosOfTile)
+    private Tile createTile(Vector2 posInWorld, Vector2 posInMatrix)
     {
-        var pos = new Vector2(xPosOfTile, yPosOfTile);
-        Tile newTile = Instantiate(_Pref_tile, pos, Quaternion.identity, this.transform).GetComponent<Tile>();
-        newTile.position = pos;
+        Tile newTile = Instantiate(_Pref_tile, posInWorld, Quaternion.identity, this.transform).GetComponent<Tile>();
+        newTile._worldPosition = posInWorld;
+        newTile._matrixPosition = posInMatrix;
         return newTile;
     }
 

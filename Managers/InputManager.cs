@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public const char actionClickedType = 'a';
-    public const char tileClickedType = 'b';
-    public const char backBtnClickedType = 'c';
-    public const char enterBtnClickedType = 'd';
-    public const char _ActionInputType = 'b';
+    public const char actionInputType = 'a';
+    public const char tileInputType = 'b';
 
-
+    public const char confirmBtnInputType = 'c';
+    public const char backBtnInputType = 'd';
+    public const char enterBtnInputType = 'e';
 }

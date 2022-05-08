@@ -13,9 +13,8 @@ internal class State_playingOutTurn: IState
         this._actionsOfAllPlayers = actionsOfAllPlayers;
     }
 
-    public void Enter()
-    {
-        throw new System.NotImplementedException();
+    public void init()
+    {      
     }
 
     public void Execute()

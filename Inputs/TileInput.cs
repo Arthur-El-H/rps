@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class TileInput : IInput
 {
-    public IAction _action;
-    public static char _type = 'a';
-    public Tile _goalTile;
+    public static char _type = InputManager.tileInputType;
+    public Tile _selectedTile;
 
-    public TileInput()
+    public TileInput( Tile selectedTile )
     {
-
+        _selectedTile = selectedTile;
     }
 
     public char getInputType()

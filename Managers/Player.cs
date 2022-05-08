@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         possibleActions = new List<IActionCapability>();
-        possibleActions.Add(new ActCap_Move());
+        possibleActions.Add(new ActCap_Move(this));
     }
 
     internal void displayPossibleActions()
@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
         foreach (var actionCap in possibleActions)
         {
             GameObject btn = actionCap.getActionDisplayObject();
-            //btn.GetComponent<ActCap_Move_Btn>().moveBtn(_testPlaceOfCap);
             ButtonManager.moveBtn(btn, _testPlaceOfCap);
         }
     }
@@ -39,11 +38,16 @@ public class Player : MonoBehaviour
         //TODO better moving / Anim
         for (int i = 0; i < 180; i++)
         {
+            if (i==0)
+            {
+                Console.WriteLine("going in 3 seconds");
+            }
             await Task.Yield();
         }
 
         tileToMoveTo.registerPlayer(this);
         _currentTile.unregisterPlayer(this);
         _currentTile = tileToMoveTo;
+        this.transform.position = tileToMoveTo._worldPosition;
     }
 }
