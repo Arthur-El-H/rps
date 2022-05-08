@@ -6,26 +6,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    int health = 10;
-    public int maxActionsPerTurn;
-    List<IActionCapability> possibleActions;
+    int _health = 10;
+    public int _maxActionsPerTurn;
+    public List<IActionCapability> _possibleActions;
     private Tile _currentTile;
-
-    Vector2 _testPlaceOfCap = new Vector2(-7,3);
 
     private void Awake()
     {
-        possibleActions = new List<IActionCapability>();
-        possibleActions.Add(new ActCap_Move(this));
-    }
-
-    internal void displayPossibleActions()
-    {
-        foreach (var actionCap in possibleActions)
-        {
-            GameObject btn = actionCap.getActionDisplayObject();
-            ButtonManager.moveBtn(btn, _testPlaceOfCap);
-        }
+        _possibleActions = new List<IActionCapability>();
+        _possibleActions.Add(new ActCap_Move(this));
     }
 
     internal void undisplayPossibleActions()

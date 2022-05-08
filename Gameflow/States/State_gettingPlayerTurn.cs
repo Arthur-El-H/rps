@@ -34,12 +34,12 @@ public class State_gettingPlayersTurn : IState
     }
     private bool isActionQueueFull(Queue<IAction> _actionsOfPlayer)
     {
-        return (_player.maxActionsPerTurn <= _actionsOfPlayer.Count);
+        return (_player._maxActionsPerTurn <= _actionsOfPlayer.Count);
     }
 
     public void init()
     {
-        _player.displayPossibleActions();
+        //_player.displayPossibleActions();
     }
 
     public void Execute()

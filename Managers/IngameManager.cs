@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class IngameManager : MonoBehaviour
@@ -41,4 +42,33 @@ public class IngameManager : MonoBehaviour
             }
         }
     }
+
+    public void playeOutTurn(List<Queue<IAction>> _actionsOfAllPlayers)
+    {
+        List<Task> actionTasks = new List<Task>();
+        int emptyQueues = 0;
+        int amountOfQueues = _actionsOfAllPlayers.Count;
+        bool isQueuesEmpty = false;
+
+        while (!isQueuesEmpty)
+        {
+            foreach (Queue<IAction> actionQueue in _actionsOfAllPlayers)
+            {
+                if (actionQueue.Count == 0)
+                {
+                    emptyQueues++;
+                }
+                else
+                {
+                    actionTasks.Add(actionQueue.Dequeue().act());
+                }
+            }
+            if (emptyQueues == amountOfQueues)
+            {
+                isQueuesEmpty = true;
+            }
+            Task.WhenAll(actionTasks);
+        }
+    }
+
 }
