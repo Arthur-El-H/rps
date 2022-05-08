@@ -9,7 +9,6 @@ public class ActCap_Move : IActionCapability
     Act_Move _actToBuild;
     GameObject _moveBtn;
     GameObject _pref_actionDisplay;
-    State_gettingPlayersAction _buildingState;
     Canvas _canvas;
 
     public ActCap_Move(Player player)

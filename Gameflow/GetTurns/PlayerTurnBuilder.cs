@@ -9,7 +9,7 @@ public class PlayerTurnBuilder : MonoBehaviour
     Vector2 _testPlaceOfCap = new Vector2(-7, 3);
     public Player _player;
 
-    public Queue<IAction> _actionsOfPlayer;
+    public Queue<IAction> _playerTurn;
     List<IActionCapability> _displayedActionCapabilities;
 
     public PlayerTurnBuilder(TurnBuilder turnBuilder, Player player)
@@ -21,15 +21,20 @@ public class PlayerTurnBuilder : MonoBehaviour
 
     public void addPlayerActionToPlayerTurn(IAction action)
     {
-        _actionsOfPlayer.Enqueue(action);
-        if (isActionQueueFull(_actionsOfPlayer))
+        _playerTurn.Enqueue(action);
+        if (isActionQueueFull(_playerTurn))
         {
-            _stateToReturnTo.addPlayersTurn(_actionsOfPlayer);
+            _turnBuilder.addPlayersTurn(_playerTurn);
         }
         else
         {
-            displayPossibleActions(_player._possibleActions);
+            initPlayerActionBuilding();
         }
+    }
+
+    private void initPlayerActionBuilding()
+    {
+        displayPossibleActions(_player._possibleActions);
     }
 
     private void displayPossibleActions(List<IActionCapability> possibleActions)

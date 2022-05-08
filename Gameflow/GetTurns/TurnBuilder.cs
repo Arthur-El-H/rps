@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class TurnBuilder: MonoBehaviour
 {
+    private Turn _turn;
     private IngameManager _ingameManager;
     private List<Player> _players;
-    List<Queue<IAction>> _actionsOfAllPlayers;
+    List<Queue<IAction>> _turnToBuild;
 
     public TurnBuilder(List<Player> players, IngameManager ingameManager)
     {
@@ -17,8 +18,8 @@ public class TurnBuilder: MonoBehaviour
 
     public void init()
     {
-        _actionsOfAllPlayers = new List<Queue<IAction>>();
-        int amountOfTurnsAdded = _actionsOfAllPlayers.Count;
+        _turnToBuild = new List<Queue<IAction>>();
+        int amountOfTurnsAdded = _turnToBuild.Count;
         foreach (var player in _players)
         {
             initPlayerTurnBuilding(player);
@@ -32,15 +33,16 @@ public class TurnBuilder: MonoBehaviour
 
     public void addPlayersTurn(Queue<IAction> actionsOfPlayer)
     {
-        _actionsOfAllPlayers.Add(actionsOfPlayer);
+        _turnToBuild.Add(actionsOfPlayer);
         if (isEveryTurnSetAlready())
         {
-            _ingameManager.playeOutTurn(_actionsOfAllPlayers);
+            _turn = new Turn(_turnToBuild);
+            _turn.playOut();
         }
     }
 
     private bool isEveryTurnSetAlready()
     {
-        return _actionsOfAllPlayers.Count >= _players.Count;
+        return _turnToBuild.Count >= _players.Count;
     }
 }

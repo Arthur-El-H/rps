@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class IngameManager : MonoBehaviour
 {
-    public statemachine _statemachine;
     [SerializeField] private Map _map;
 
     [SerializeField] public GameObject _pref_player;
@@ -18,8 +17,6 @@ public class IngameManager : MonoBehaviour
     {
         _map.init();
         setPlayersOnMap();
-        _statemachine = new statemachine();
-        _statemachine.changeState(new State_gettingAllPlayersTurns(_statemachine, _players));
     }
 
     private void setPlayersOnMap()
@@ -42,33 +39,4 @@ public class IngameManager : MonoBehaviour
             }
         }
     }
-
-    public void playeOutTurn(List<Queue<IAction>> _actionsOfAllPlayers)
-    {
-        List<Task> actionTasks = new List<Task>();
-        int emptyQueues = 0;
-        int amountOfQueues = _actionsOfAllPlayers.Count;
-        bool isQueuesEmpty = false;
-
-        while (!isQueuesEmpty)
-        {
-            foreach (Queue<IAction> actionQueue in _actionsOfAllPlayers)
-            {
-                if (actionQueue.Count == 0)
-                {
-                    emptyQueues++;
-                }
-                else
-                {
-                    actionTasks.Add(actionQueue.Dequeue().act());
-                }
-            }
-            if (emptyQueues == amountOfQueues)
-            {
-                isQueuesEmpty = true;
-            }
-            Task.WhenAll(actionTasks);
-        }
-    }
-
 }
