@@ -1,20 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActCap_Move : IActionCapability
+public class MoveActionBuilder : IActionBuilder
 {
     Player _player;
     Act_Move _actToBuild;
-    GameObject _moveBtn;
-    GameObject _pref_actionDisplay;
-    Canvas _canvas;
+    InputManager _inputManager;
 
-    public ActCap_Move(Player player)
+    public MoveActionBuilder(Player player)
     {
-        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-        _pref_actionDisplay = Prefabs.Instance.prefab_ActMoveDisplay;
         _player = player;
         _actToBuild = new Act_Move(_player);
     }
@@ -23,13 +18,6 @@ public class ActCap_Move : IActionCapability
     {
         return _actToBuild;
     }
-
-    public GameObject getActionDisplayObject()
-    {
-        _moveBtn = GameObject.Instantiate(_pref_actionDisplay,_canvas.transform);
-        return _moveBtn;
-    }
-
 
     public void handleInput(IInput input)
     {
@@ -52,7 +40,7 @@ public class ActCap_Move : IActionCapability
         }
         else
         {
-            _buildingState.finishAction();
+            //_actToBuild.finishAction();
         }
     }
 
@@ -72,4 +60,3 @@ public class ActCap_Move : IActionCapability
         }
     }
 }
-

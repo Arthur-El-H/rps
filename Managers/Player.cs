@@ -9,17 +9,22 @@ public class Player : MonoBehaviour
     int _health = 10;
     public int _maxActionsPerTurn;
     public List<IActionCapability> _possibleActions;
+    public List<GameObject> _actionCapabilityBtns;
     private Tile _currentTile;
+    GameObject _pref_actionDisplay;
+    InputManager _inputManager;
+
 
     private void Awake()
     {
         _possibleActions = new List<IActionCapability>();
-        _possibleActions.Add(new ActCap_Move(this));
-    }
+        _possibleActions.Add(new MoveActionCapability(this));
 
-    internal void undisplayPossibleActions()
-    {
-        throw new NotImplementedException();
+        foreach (var actionCapability in _possibleActions)
+        {
+            actionCapability.setInputManager(_inputManager);
+            _actionCapabilityBtns.Add(actionCapability.getActionDisplayObject());
+        }
     }
 
     public async Task moveTo(Tile tileToMoveTo)
@@ -38,5 +43,21 @@ public class Player : MonoBehaviour
         _currentTile.unregisterPlayer(this);
         _currentTile = tileToMoveTo;
         this.transform.position = tileToMoveTo._worldPosition;
+    }
+
+    internal void displayPossibleActions()
+    {
+        foreach (GameObject actionBtn in _actionCapabilityBtns)
+        {
+            actionBtn.SetActive(true);
+        }
+    }
+
+    internal void undisplayPossibleActions()
+    {
+        foreach (GameObject actionBtn in _actionCapabilityBtns)
+        {
+            actionBtn.SetActive(false);
+        }
     }
 }

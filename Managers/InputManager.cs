@@ -10,4 +10,9 @@ public class InputManager : MonoBehaviour
     public const char confirmBtnInputType = 'c';
     public const char backBtnInputType = 'd';
     public const char enterBtnInputType = 'e';
+
+    public static void registerActionInput(ActionInput actionInput)
+    {
+        return;
+    }
 }

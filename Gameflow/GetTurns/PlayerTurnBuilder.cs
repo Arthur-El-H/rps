@@ -34,7 +34,7 @@ public class PlayerTurnBuilder : MonoBehaviour
 
     private void initPlayerActionBuilding()
     {
-        displayPossibleActions(_player._possibleActions);
+        _player.displayPossibleActions();
     }
 
     private void displayPossibleActions(List<IActionCapability> possibleActions)
@@ -61,7 +61,7 @@ public class PlayerTurnBuilder : MonoBehaviour
     public void init()
     {
         // TODO subscribe to Input manager
-        displayPossibleActions(_player._possibleActions);
+        _player.displayPossibleActions();
     }
 
     public void handleInput(IInput input)
@@ -80,8 +80,10 @@ public class PlayerTurnBuilder : MonoBehaviour
 
     private void handleActionInput(IInput input)
     {
-        undisplayPossibleActions();
-        ActionInput actionInput = input as ActionInput;
-        PlayerActionBuilder playerAction = new PlayerActionBuilder(_player, this, actionInput._actionCapability);
+        _player.undisplayPossibleActions();
+        //unsubscribe to inputmanager
+
+        //ActionInput actionInput = input as ActionInput;
+        //PlayerActionBuilder playerAction = new PlayerActionBuilder(_player, this, actionInput._actionBuilder);
     }
 }

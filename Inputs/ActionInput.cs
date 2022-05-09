@@ -5,7 +5,12 @@ using UnityEngine;
 public class ActionInput : IInput
 {
     public const char _type = InputManager.actionInputType;
-    public IActionCapability _actionCapability;
+    public IActionBuilder _actionBuilder;
+
+    public ActionInput(MoveActionBuilder moveActionBuilder)
+    {
+        _actionBuilder= moveActionBuilder;
+    }
 
     public char getInputType()
     {
