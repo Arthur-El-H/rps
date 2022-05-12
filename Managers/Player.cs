@@ -17,8 +17,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _possibleActions = new List<IActionCapability>();
-        _possibleActions.Add(new MoveActionCapability(this));
+        setPossibleActions();
 
         foreach (var actionCapability in _possibleActions)
         {
@@ -50,6 +49,7 @@ public class Player : MonoBehaviour
         foreach (GameObject actionBtn in _actionCapabilityBtns)
         {
             actionBtn.SetActive(true);
+            // TODO: maybe let it be placed by buttonManager? Or by who?
         }
     }
 
@@ -59,5 +59,10 @@ public class Player : MonoBehaviour
         {
             actionBtn.SetActive(false);
         }
+    }
+
+    public void setPossibleActions()
+    {
+        _possibleActions.Add(ActionCapabilityFactory.getMoveActionCapability());
     }
 }

@@ -18,7 +18,8 @@ public class PlayerActionBuilder : MonoBehaviour
 
     public void handleInput(IInput input)
     {
-        _actionCapability.handleInput(input);
+        // instead make actionCap subscribe to Inputmanager
+        //_actionCapability.handleInput(input);
     }
 
     internal void finishAction()

@@ -9,7 +9,7 @@ public class ActionInput : IInput
 
     public ActionInput(MoveActionBuilder moveActionBuilder)
     {
-        _actionBuilder= moveActionBuilder;
+        _actionBuilder = moveActionBuilder;
     }
 
     public char getInputType()

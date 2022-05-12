@@ -13,13 +13,14 @@ public class MoveActionCapability : IActionCapability
     InputManager _inputManager;
     PlayerTurnBuilder playerTurnBuilder;
 
-    public MoveActionCapability(Player player)
+    public MoveActionCapability()
     {
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         _pref_actionDisplay = Prefabs.Instance.prefab_ActMoveDisplay;
-        _player = player;
+        //_player = player;
         _moveBtn = GameObject.Instantiate(_pref_actionDisplay, _canvas.transform);
-        _moveBtn.GetComponent<Button>();
+        //TODO: ...
+        _moveBtn.GetComponent<Button>().onClick.AddListener(delegate { InputManager.registerActionInput(new ActionInput(new MoveActionBuilder(_player))); });
     }
 
     public void createAction(PlayerTurnBuilder playerTurnBuilder)

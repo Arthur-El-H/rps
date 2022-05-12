@@ -18,7 +18,31 @@ public class PlayerTurnBuilder : MonoBehaviour
         _player = player;
         //TODO get amountOfAction und amountOfActionALlowed
     }
+    public void init()
+    {
+        InputManager.ActionBtnClicked += handleActionInput;
+        _player.displayPossibleActions();
+    }
+    private void initPlayerActionBuilding()
+    {
+        _player.displayPossibleActions();
+    }
+    private void displayPossibleActions(List<IActionCapability> possibleActions)
+    {
+        foreach (var actionCap in possibleActions)
+        {
+            GameObject btn = actionCap.getActionDisplayObject();
+            ButtonManager.moveBtn(btn, _testPlaceOfCap);
+        }
+    }
+    private void undisplayPossibleActions()
+    {
+        // TODO Maybe by caching all built btn gameobjects and destroy or
+        // maybe build all btns at the beginning and just set them to their
+        // locations an enable / disable them.
+    }
 
+    //On Finish of child
     public void addPlayerActionToPlayerTurn(IAction action)
     {
         _playerTurn.Enqueue(action);
@@ -32,40 +56,18 @@ public class PlayerTurnBuilder : MonoBehaviour
         }
     }
 
-    private void initPlayerActionBuilding()
-    {
-        _player.displayPossibleActions();
-    }
 
-    private void displayPossibleActions(List<IActionCapability> possibleActions)
-    {
-        foreach (var actionCap in possibleActions)
-        {
-            GameObject btn = actionCap.getActionDisplayObject();
-            ButtonManager.moveBtn(btn, _testPlaceOfCap);
-        }
-    }
 
-    private void undisplayPossibleActions()
-    {
-        // TODO Maybe by caching all built btn gameobjects and destroy or
-        // maybe build all btns at the beginning and just set them to their
-        // locations an enable / disable them.
-    }
 
     private bool isActionQueueFull(Queue<IAction> _actionsOfPlayer)
     {
         return (_player._maxActionsPerTurn <= _actionsOfPlayer.Count);
     }
 
-    public void init()
-    {
-        // TODO subscribe to Input manager
-        _player.displayPossibleActions();
-    }
 
     public void handleInput(IInput input)
     {
+        //Wrschl unnötig, wenn ich direkt subscribe
         char inputType = input.getInputType();
         switch (inputType)
         {
