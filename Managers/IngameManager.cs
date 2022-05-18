@@ -17,6 +17,7 @@ public class IngameManager : MonoBehaviour
     {
         _map.init();
         setPlayersOnMap();
+        new TurnBuilder(_players, this).init();
     }
 
     private void setPlayersOnMap()

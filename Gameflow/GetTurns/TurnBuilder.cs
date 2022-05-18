@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnBuilder: MonoBehaviour
+public class TurnBuilder
 {
     private Turn _turn;
     private IngameManager _ingameManager;
@@ -28,7 +28,7 @@ public class TurnBuilder: MonoBehaviour
 
     private void initPlayerTurnBuilding(Player player)
     {
-        new PlayerTurnBuilder(this, player);
+        new PlayerTurnBuilder(this, player).init();
     }
 
     public void addPlayersTurn(Queue<IAction> actionsOfPlayer)

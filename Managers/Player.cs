@@ -22,7 +22,10 @@ public class Player : MonoBehaviour
         foreach (var actionCapability in _possibleActions)
         {
             actionCapability.setInputManager(_inputManager);
-            _actionCapabilityBtns.Add(actionCapability.getActionDisplayObject());
+            GameObject btn = actionCapability.getActionDisplayObject();
+            _actionCapabilityBtns.Add(btn);
+            btn.SetActive(false);
+
         }
     }
 

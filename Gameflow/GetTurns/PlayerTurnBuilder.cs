@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTurnBuilder : MonoBehaviour
+public class PlayerTurnBuilder 
 {
     TurnBuilder _turnBuilder;
     Vector2 _testPlaceOfCap = new Vector2(-7, 3);
