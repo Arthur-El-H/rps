@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 {
     int _health = 10;
     public int _maxActionsPerTurn;
-    public List<IActionCapability> _possibleActions;
+    public List<IActionCapability> _possibleActions = new List<IActionCapability>();
     public List<GameObject> _actionCapabilityBtns;
     private Tile _currentTile;
     GameObject _pref_actionDisplay;

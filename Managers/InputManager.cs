@@ -18,6 +18,7 @@ public class InputManager : MonoBehaviour
 
     public static void registerActionInput(ActionInput actionInput)
     {
+        Debug.Log("actionInput has been clicked: " + actionInput._actionBuilder.ToString() + " and " + actionInput.getInputType());
         ActionBtnClicked.Invoke(actionInput);
         return;
     }
