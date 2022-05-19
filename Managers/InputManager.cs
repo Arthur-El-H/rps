@@ -14,6 +14,8 @@ public class InputManager : MonoBehaviour
 
     public static Action<TileInput> TileClicked;
     public static Action<ActionInput> ActionBtnClicked;
+    public static Action<ConfirmInput> ConfirmBtnClicked;
+
 
 
     public static void registerActionInput(ActionInput actionInput)
@@ -26,6 +28,12 @@ public class InputManager : MonoBehaviour
     public static void registerTileInput(TileInput tileInput)
     {
         TileClicked.Invoke(tileInput);
+        return;
+    }
+
+    public static void registerConfirmInput(ConfirmInput confirmInput)
+    {
+        ConfirmBtnClicked.Invoke(confirmInput);
         return;
     }
 }

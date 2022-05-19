@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveActionBuilder : IActionBuilder
+public class Move_Builder : IActionBuilder
 {
     Player _player;
-    Act_Move _actToBuild;
-    InputManager _inputManager;
+    Move _actToBuild;
 
-    public MoveActionBuilder(Player player)
+    public Move_Builder(Player player)
     {
         _player = player;
-        _actToBuild = new Act_Move(_player);
+        _actToBuild = new Move(_player);
     }
 
     public IAction getAction()
@@ -25,22 +24,13 @@ public class MoveActionBuilder : IActionBuilder
         {
             handleTileInput(input);
         }
-
-        if (input.getInputType() == ConfirmInput._type)
-        {
-            handleConfirmInput();
-        }
     }
 
-    private void handleConfirmInput()
+    public void validateActionFinished()
     {
         if (_actToBuild._goals.Count == 0)
         {
-            throw new NoGoalsException();
-        }
-        else
-        {
-            //_actToBuild.finishAction();
+            throw new ActionNotFinishedException();
         }
     }
 

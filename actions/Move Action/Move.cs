@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Act_Move: IAction
+public class Move: IAction
 {
     Player _player;
     public List<Tile> _goals;
 
-    public Act_Move(Player player)
+    public Move(Player player)
     {
         _player = player;
         _goals = new List<Tile>();

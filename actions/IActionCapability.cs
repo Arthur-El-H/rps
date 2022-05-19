@@ -5,8 +5,4 @@ using UnityEngine;
 public interface IActionCapability
 {
     public GameObject getActionDisplayObject();
-
-    public void setInputManager(InputManager inputManager);
-    public void createAction(PlayerTurnBuilder playerTurnBuilder);
-
 }

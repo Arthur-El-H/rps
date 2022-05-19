@@ -11,8 +11,6 @@ public class Player : MonoBehaviour
     public List<IActionCapability> _possibleActions = new List<IActionCapability>();
     public List<GameObject> _actionCapabilityBtns;
     private Tile _currentTile;
-    GameObject _pref_actionDisplay;
-    InputManager _inputManager;
 
 
     private void Awake()
@@ -21,7 +19,6 @@ public class Player : MonoBehaviour
 
         foreach (var actionCapability in _possibleActions)
         {
-            actionCapability.setInputManager(_inputManager);
             GameObject btn = actionCapability.getActionDisplayObject();
             _actionCapabilityBtns.Add(btn);
             btn.SetActive(false);
@@ -66,6 +63,6 @@ public class Player : MonoBehaviour
 
     public void setPossibleActions()
     {
-        _possibleActions.Add(ActionCapabilityFactory.getMoveActionCapability());
+        _possibleActions.Add(new Move_Capability());
     }
 }

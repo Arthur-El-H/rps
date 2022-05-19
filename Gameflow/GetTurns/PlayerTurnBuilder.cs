@@ -8,9 +8,9 @@ public class PlayerTurnBuilder
     TurnBuilder _turnBuilder;
     Vector2 _testPlaceOfCap = new Vector2(-7, 3);
     public Player _player;
+    private IActionBuilder _currentActionBuilder;
 
     public Queue<IAction> _playerTurn;
-    List<IActionCapability> _displayedActionCapabilities;
 
     public PlayerTurnBuilder(TurnBuilder turnBuilder, Player player)
     {
@@ -22,24 +22,6 @@ public class PlayerTurnBuilder
     {
         InputManager.ActionBtnClicked += handleActionInput;
         _player.displayPossibleActions();
-    }
-    private void initPlayerActionBuilding()
-    {
-        _player.displayPossibleActions();
-    }
-    private void displayPossibleActions(List<IActionCapability> possibleActions)
-    {
-        foreach (var actionCap in possibleActions)
-        {
-            GameObject btn = actionCap.getActionDisplayObject();
-            ButtonManager.moveBtn(btn, _testPlaceOfCap);
-        }
-    }
-    private void undisplayPossibleActions()
-    {
-        // TODO Maybe by caching all built btn gameobjects and destroy or
-        // maybe build all btns at the beginning and just set them to their
-        // locations an enable / disable them.
     }
 
     //On Finish of child
@@ -55,15 +37,15 @@ public class PlayerTurnBuilder
             initPlayerActionBuilding();
         }
     }
-
-
-
-
     private bool isActionQueueFull(Queue<IAction> _actionsOfPlayer)
     {
         return (_player._maxActionsPerTurn <= _actionsOfPlayer.Count);
     }
 
+    private void initPlayerActionBuilding()
+    {
+        _player.displayPossibleActions();
+    }
 
     public void handleInput(IInput input)
     {
@@ -79,7 +61,6 @@ public class PlayerTurnBuilder
                 break;
         }
     }
-
     private void handleActionInput(IInput input)
     {
         _player.undisplayPossibleActions();
@@ -88,4 +69,9 @@ public class PlayerTurnBuilder
         //ActionInput actionInput = input as ActionInput;
         //PlayerActionBuilder playerAction = new PlayerActionBuilder(_player, this, actionInput._actionBuilder);
     }
+    private void handleConfirmInput(IInput input)
+    {
+        _currentActionBuilder.
+    }
+
 }
