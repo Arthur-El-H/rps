@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IActionBuilder 
 {
-    public void handleInput(IInput input);
+    public void init();
     public void validateActionFinished();
     public IAction getAction();
 }

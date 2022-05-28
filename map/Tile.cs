@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Tile : MonoBehaviour
 {
@@ -9,6 +11,11 @@ public class Tile : MonoBehaviour
     public Vector2 _matrixPosition;
 
     List<Player> _playersOnTile;
+
+    private void Awake()
+    {
+        Debug.Log("Hello");
+    }
     public bool _isPlayerOnTile()
     {
         return (_playersOnTile.Count != 0);
@@ -18,6 +25,7 @@ public class Tile : MonoBehaviour
     {
         _playersOnTile.Add(player);
     }
+
     public void unregisterPlayer(Player player)
     {
         _playersOnTile.Remove(player);
@@ -25,11 +33,17 @@ public class Tile : MonoBehaviour
 
     internal void demark()
     {
-        throw new NotImplementedException();
+        Debug.Log("is unmarked");
     }
 
     internal void mark()
     {
-        throw new NotImplementedException();
+        Debug.Log("is marked");
+    }
+
+    private void OnMouseDown()
+    {
+        Debug.Log("is clicked");
+        InputManager.registerTileInput(new TileInput(this));
     }
 }

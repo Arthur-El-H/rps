@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,12 +19,9 @@ public class Move_Builder : IActionBuilder
         return _actToBuild;
     }
 
-    public void handleInput(IInput input)
+    public void init()
     {
-        if (input.getInputType() == TileInput._type)
-        {
-            handleTileInput(input);
-        }
+        InputManager.TileClicked += handleTileInput;
     }
 
     public void validateActionFinished()

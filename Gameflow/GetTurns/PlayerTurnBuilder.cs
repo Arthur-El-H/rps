@@ -20,8 +20,8 @@ public class PlayerTurnBuilder
     }
     public void init()
     {
-        InputManager.ActionBtnClicked += handleActionInput;
         _player.displayPossibleActions();
+        subscribeToActionInput();
     }
 
     //On Finish of child
@@ -41,12 +41,10 @@ public class PlayerTurnBuilder
     {
         return (_player._maxActionsPerTurn <= _actionsOfPlayer.Count);
     }
-
     private void initPlayerActionBuilding()
     {
         _player.displayPossibleActions();
     }
-
     public void handleInput(IInput input)
     {
         //Wrschl unnötig, wenn ich direkt subscribe
@@ -64,14 +62,42 @@ public class PlayerTurnBuilder
     private void handleActionInput(IInput input)
     {
         _player.undisplayPossibleActions();
-        //unsubscribe to inputmanager
+        unsubscribeToActionInput();
 
-        //ActionInput actionInput = input as ActionInput;
-        //PlayerActionBuilder playerAction = new PlayerActionBuilder(_player, this, actionInput._actionBuilder);
+        ActionInput actionInput = input as ActionInput;
+        Move_Builder move_builder = new Move_Builder(_player);
+        move_builder.init();
+        InputManager.ConfirmBtnClicked += handleConfirmInput;
+        //TODO subscribe to Confirm
     }
     private void handleConfirmInput(IInput input)
     {
-        _currentActionBuilder.
+        try
+        {
+            _currentActionBuilder.validateActionFinished();
+            addPlayerActionToPlayerTurn(_currentActionBuilder.getAction());
+        }
+        catch (ActionNotFinishedException)
+        {
+            Debug.Log("Action is not finished");
+        }        
+    }
+
+    private void subscribeToActionInput()
+    {
+        InputManager.ActionBtnClicked += handleActionInput;
+    }
+    private void unsubscribeToActionInput()
+    {
+        InputManager.ActionBtnClicked -= handleActionInput;
+    }
+    private void subscribeToConfirmInput()
+    {
+        InputManager.ConfirmBtnClicked += handleConfirmInput;
+    }
+    private void unsubscribeToConfirmInput()
+    {
+        InputManager.ConfirmBtnClicked -= handleConfirmInput;
     }
 
 }
