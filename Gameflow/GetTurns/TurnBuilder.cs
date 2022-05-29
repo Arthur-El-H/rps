@@ -20,10 +20,15 @@ public class TurnBuilder
     {
         _turnToBuild = new List<Queue<IAction>>();
         int amountOfTurnsAdded = _turnToBuild.Count;
-        foreach (var player in _players)
-        {
-            initPlayerTurnBuilding(player);
-        }
+
+        //For now only one player
+        initPlayerTurnBuilding(_players[0]);
+
+        //TODO: Implement for all players later
+        //foreach (var player in _players)
+        //{
+        //    initPlayerTurnBuilding(player);
+        //}
     }
 
     private void initPlayerTurnBuilding(Player player)

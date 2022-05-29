@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     int _health = 10;
-    public int _maxActionsPerTurn;
+    public int _maxActionsPerTurn = 2;
     public List<IActionCapability> _possibleActions = new List<IActionCapability>();
     public List<GameObject> _actionCapabilityBtns;
     private Tile _currentTile;
@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
                 Console.WriteLine("going in 3 seconds");
             }
             await Task.Yield();
+            // TODO Bug happens here and game crashes (await Task.Yield()) 
         }
 
         tileToMoveTo.registerPlayer(this);

@@ -15,7 +15,9 @@ public class IngameManager : MonoBehaviour
 
     void Start()
     {
+        //TODO init Players in their own method
         _map.init();
+        InputManager.init();
         setPlayersOnMap();
         new TurnBuilder(_players, this).init();
     }

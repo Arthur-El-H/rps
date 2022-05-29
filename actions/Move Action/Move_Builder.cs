@@ -16,12 +16,13 @@ public class Move_Builder : IActionBuilder
 
     public IAction getAction()
     {
+        InputManager.unsubscribeToTileClicked(handleTileInput);
         return _actToBuild;
     }
 
     public void init()
     {
-        InputManager.TileClicked += handleTileInput;
+        InputManager.subscribeToTileClicked(handleTileInput);
     }
 
     public void validateActionFinished()

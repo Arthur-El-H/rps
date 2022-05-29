@@ -16,12 +16,13 @@ public class PlayerTurnBuilder
     {
         _turnBuilder = turnBuilder;
         _player = player;
+        _player._maxActionsPerTurn = 2;
+        _playerTurn = new Queue<IAction>();
         //TODO get amountOfAction und amountOfActionALlowed
     }
     public void init()
     {
-        _player.displayPossibleActions();
-        subscribeToActionInput();
+        initPlayerActionBuilding();
     }
 
     //On Finish of child
@@ -39,42 +40,29 @@ public class PlayerTurnBuilder
     }
     private bool isActionQueueFull(Queue<IAction> _actionsOfPlayer)
     {
-        return (_player._maxActionsPerTurn <= _actionsOfPlayer.Count);
+        return _player._maxActionsPerTurn <= _actionsOfPlayer.Count;
     }
     private void initPlayerActionBuilding()
     {
         _player.displayPossibleActions();
-    }
-    public void handleInput(IInput input)
-    {
-        //Wrschl unnötig, wenn ich direkt subscribe
-        char inputType = input.getInputType();
-        switch (inputType)
-        {
-            case ActionInput._type:
-                handleActionInput(input);
-                break;
-
-            default:
-                break;
-        }
+        InputManager.subscribeToActionBtnClicked(handleActionInput);
     }
     private void handleActionInput(IInput input)
     {
         _player.undisplayPossibleActions();
-        unsubscribeToActionInput();
+        InputManager.unsubscribeToActionBtnClicked(handleActionInput);
 
         ActionInput actionInput = input as ActionInput;
-        Move_Builder move_builder = new Move_Builder(_player);
-        move_builder.init();
-        InputManager.ConfirmBtnClicked += handleConfirmInput;
-        //TODO subscribe to Confirm
+        _currentActionBuilder = new Move_Builder(_player);
+        _currentActionBuilder.init();
+        InputManager.subscribeToConfirmBtnClicked(handleConfirmInput);
     }
     private void handleConfirmInput(IInput input)
     {
         try
         {
             _currentActionBuilder.validateActionFinished();
+            InputManager.unsubscribeToConfirmBtnClicked(handleConfirmInput);
             addPlayerActionToPlayerTurn(_currentActionBuilder.getAction());
         }
         catch (ActionNotFinishedException)
@@ -82,22 +70,4 @@ public class PlayerTurnBuilder
             Debug.Log("Action is not finished");
         }        
     }
-
-    private void subscribeToActionInput()
-    {
-        InputManager.ActionBtnClicked += handleActionInput;
-    }
-    private void unsubscribeToActionInput()
-    {
-        InputManager.ActionBtnClicked -= handleActionInput;
-    }
-    private void subscribeToConfirmInput()
-    {
-        InputManager.ConfirmBtnClicked += handleConfirmInput;
-    }
-    private void unsubscribeToConfirmInput()
-    {
-        InputManager.ConfirmBtnClicked -= handleConfirmInput;
-    }
-
 }

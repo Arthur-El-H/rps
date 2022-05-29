@@ -2,9 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
+    protected static Canvas _canvas;
+    protected static GameObject _confirmBtnObj;
+    protected static Button _confirmBtn;
+    protected static Vector2 _posConfirmBtn = new Vector2(5,3);
+
     public const char actionInputType = 'a';
     public const char tileInputType = 'b';
 
@@ -16,33 +22,43 @@ public class InputManager : MonoBehaviour
     public static Action<ActionInput> ActionBtnClicked;
     public static Action<ConfirmInput> ConfirmBtnClicked;
 
-    public void subscribeToTileClicked(Action<TileInput> action)
+
+    public static void init()
+    {
+        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        _confirmBtnObj = Instantiate(Prefabs.Instance.prefab_ConfirmBtn, _canvas.transform);
+        ButtonManager.moveBtn(_confirmBtnObj, _posConfirmBtn);
+        _confirmBtnObj.GetComponent<Button>().onClick.AddListener(delegate
+        { InputManager.registerConfirmInput(new ConfirmInput()); });
+        _confirmBtnObj.SetActive(false);
+    }
+    public static void subscribeToTileClicked(Action<TileInput> action)
     {
         TileClicked += action;
     }
-    public void unsubscribeToTileClicked(Action<TileInput> action)
+    public static void unsubscribeToTileClicked(Action<TileInput> action)
     {
         TileClicked -= action;
     }
 
-    public void subscribeToActionBtnClicked(Action<ActionInput> action)
+    public static void subscribeToActionBtnClicked(Action<ActionInput> action)
     {
         ActionBtnClicked += action;
     }
-    public void unsubscribeToActionBtnClicked(Action<ActionInput> action)
+    public static void unsubscribeToActionBtnClicked(Action<ActionInput> action)
     {
         ActionBtnClicked -= action;
     }
 
-    public void subscribeToConfirmBtnClicked(Action<ConfirmInput> action)
+    public static void subscribeToConfirmBtnClicked(Action<ConfirmInput> action)
     {
-        // TODO Show btn when more than one is subscribed
+        if (ConfirmBtnClicked == null) _confirmBtnObj.SetActive(true);
         ConfirmBtnClicked += action;
     }
-    public void unsubscribeToConfirmBtnClicked(Action<ConfirmInput> action)
+    public static void unsubscribeToConfirmBtnClicked(Action<ConfirmInput> action)
     {
         ConfirmBtnClicked -= action;
-        // TODO hide button when empy
+        if (ConfirmBtnClicked == null) _confirmBtnObj.SetActive(false);
     }
 
     public static void registerActionInput(ActionInput actionInput)
