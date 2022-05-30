@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public int _maxActionsPerTurn = 2;
     public List<IActionCapability> _possibleActions = new List<IActionCapability>();
     public List<GameObject> _actionCapabilityBtns;
-    private Tile _currentTile;
+    public Tile _currentTile;
 
 
     private void Awake()
@@ -33,11 +33,13 @@ public class Player : MonoBehaviour
         {
             if (i==0)
             {
-                Console.WriteLine("going in 3 seconds");
+                Debug.Log("going in 3 seconds");
             }
             await Task.Yield();
             // TODO Bug happens here and game crashes (await Task.Yield()) 
         }
+
+        Debug.Log("Moved");
 
         tileToMoveTo.registerPlayer(this);
         _currentTile.unregisterPlayer(this);

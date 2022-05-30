@@ -44,6 +44,10 @@ public class TurnBuilder
             _turn = new Turn(_turnToBuild);
             _turn.playOut();
         }
+        else
+        {
+            initPlayerTurnBuilding(_players[1]);
+        }
     }
 
     private bool isEveryTurnSetAlready()

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 
-public class Turn : MonoBehaviour
+public class Turn 
 {
     private List<Queue<IAction>> _playerActions;
     private int amountOfPlayers;
@@ -14,18 +14,28 @@ public class Turn : MonoBehaviour
         amountOfPlayers = _playerActions.Count;
     }
 
-    public void playOut()
+    public async void playOut()
     {
         while (isAtLeastOneActionLeft())
         {
-            playOutEachPlayersNextAction();
+            await playOutEachPlayersNextAction();
+            Debug.Log("one charge finished");
         }
     }
 
-    private void playOutEachPlayersNextAction()
+    private async Task playOutEachPlayersNextAction()
     {
-        Task[] actionsToPlay = getArrayOfAllActionsToPlayOut();        
-        Task.WaitAll(actionsToPlay);
+        //Task[] actionsToPlay = getArrayOfAllActionsToPlayOut();        
+        Task[] actionsToPlay = new Task[amountOfPlayers];
+        for (int i = 0; i < amountOfPlayers; i++)
+        {
+            if (isEmpty(_playerActions[i]))
+            {
+                continue;
+            }
+            actionsToPlay[i] = _playerActions[i].Dequeue().act();
+        }
+        await Task.WhenAll(actionsToPlay);
     }
 
     private Task[] getArrayOfAllActionsToPlayOut()

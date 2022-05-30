@@ -9,12 +9,16 @@ public class Tile : MonoBehaviour
 {
     public Vector2 _worldPosition;
     public Vector2 _matrixPosition;
+    public SpriteRenderer _renderer;
 
-    List<Player> _playersOnTile;
+    List<Player> _playersOnTile = new List<Player>();
+
+    private static Color _marked = Color.green; //new Color(255, 100, 125);
+    private static Color _unmarked = Color.white;//new Color(255, 255, 255);
 
     private void Awake()
     {
-        Debug.Log("Hello");
+        _renderer = this.gameObject.GetComponent<SpriteRenderer>();
     }
     public bool _isPlayerOnTile()
     {
@@ -31,19 +35,20 @@ public class Tile : MonoBehaviour
         _playersOnTile.Remove(player);
     }
 
-    internal void demark()
+    public void demark()
     {
-        Debug.Log("is unmarked");
+        Debug.Log("unmarked");
+        _renderer.color = _unmarked;
     }
 
-    internal void mark()
+    public void mark()
     {
-        Debug.Log("is marked");
+        Debug.Log("marked");
+        _renderer.color = _marked;
     }
 
     private void OnMouseDown()
     {
-        Debug.Log("is clicked");
         InputManager.registerTileInput(new TileInput(this));
     }
 }

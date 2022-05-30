@@ -17,6 +17,7 @@ public class Move_Builder : IActionBuilder
     public IAction getAction()
     {
         InputManager.unsubscribeToTileClicked(handleTileInput);
+        _actToBuild.unmarkTiles();
         return _actToBuild;
     }
 

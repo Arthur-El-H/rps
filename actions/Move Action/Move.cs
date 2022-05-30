@@ -8,6 +8,14 @@ public class Move: IAction
     Player _player;
     public List<Tile> _goals;
 
+    public void unmarkTiles()
+    {
+        foreach (Tile tile in _goals)
+        {
+            tile.demark();
+        }
+    }
+
     public Move(Player player)
     {
         _player = player;
@@ -16,9 +24,6 @@ public class Move: IAction
 
     public async Task act()
     {
-        foreach (Tile tile in _goals)
-        {
-            await _player.moveTo(tile);
-        }
+        await _player.moveTo(_goals[0]);
     }
 }
