@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     public async Task moveTo(Tile tileToMoveTo)
     {
         //TODO better moving / Anim
-        for (int i = 0; i < 180; i++)
+        for (int i = 0; i < Turn.framesOfFirstHalf; i++)
         {
             if (i==0)
             {

@@ -8,6 +8,10 @@ public class Turn
     private List<Queue<IAction>> _playerActions;
     private int amountOfPlayers;
 
+    public const int startingInFirstHalf = 1;
+    public const int startingInSecondHalf = 2;
+    public const int framesOfFirstHalf = 180;
+
     public Turn(List<Queue<IAction>> playerActions)
     {
         _playerActions = playerActions;
@@ -25,31 +29,41 @@ public class Turn
 
     private async Task playOutEachPlayersNextAction()
     {
-        //Task[] actionsToPlay = getArrayOfAllActionsToPlayOut();        
-        Task[] actionsToPlay = new Task[amountOfPlayers];
+        List<IAction> ActionstartingInFirstHalf = new List<IAction>();
+        List<IAction> ActionstartingInSecondHalf = new List<IAction>();
         for (int i = 0; i < amountOfPlayers; i++)
         {
             if (isEmpty(_playerActions[i]))
             {
                 continue;
             }
-            actionsToPlay[i] = _playerActions[i].Dequeue().act();
-        }
-        await Task.WhenAll(actionsToPlay);
-    }
 
-    private Task[] getArrayOfAllActionsToPlayOut()
-    {
-        Task[] actionsToPlay = new Task[amountOfPlayers];
-        for (int i = 0; i < amountOfPlayers; i++)
-        {
-            if (isEmpty(_playerActions[i]))
+            var actionToPlay = _playerActions[i].Dequeue();
+            switch (actionToPlay.halfToStartAt())
             {
-                continue;
+                case startingInFirstHalf:
+                    ActionstartingInFirstHalf.Add(actionToPlay);
+                    break;
+                case startingInSecondHalf:
+                    ActionstartingInSecondHalf.Add(actionToPlay);
+                    break;
             }
-            actionsToPlay[i] = _playerActions[i].Dequeue().act(); 
         }
-        return actionsToPlay;
+
+        List<Task> actions = new List<Task>();
+        foreach (var action in ActionstartingInFirstHalf)
+        {
+            actions.Add(action.act());
+        }
+        for (int i = 0; i < framesOfFirstHalf; i++)
+        {
+            await Task.Yield();
+        }
+        foreach (var action in ActionstartingInSecondHalf)
+        {
+            actions.Add(action.act());
+        }
+        await Task.WhenAll(actions);
     }
 
     private bool isAtLeastOneActionLeft()

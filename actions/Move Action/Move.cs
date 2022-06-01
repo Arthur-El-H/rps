@@ -26,4 +26,9 @@ public class Move: IAction
     {
         await _player.moveTo(_goals[0]);
     }
+
+    public int halfToStartAt()
+    {
+        return Turn.startingInFirstHalf;
+    }
 }
