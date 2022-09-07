@@ -6,12 +6,24 @@ using UnityEngine;
 
 public class IngameManager : MonoBehaviour
 {
+    public struct intVector
+    {
+        public intVector(int givenX, int givenY)
+        {           
+            x = givenX;
+            y = givenY;
+        }
+        public int x;
+        public int y;
+    }
+
     [SerializeField] private Map _map;
 
     [SerializeField] public GameObject _pref_player;
     [SerializeField] int _amountOfPlayers = 2;
 
     List<Player> _players = new List<Player>();
+    private int _currentPlayers;
 
     void Start()
     {
@@ -28,25 +40,29 @@ public class IngameManager : MonoBehaviour
         //TODO make it scale for more players
         for (int i = 0; i < _amountOfPlayers; i++)
         {
-            switch (i)
-            {
-                case 0:
-                    _players.Add( Instantiate(_pref_player, _map.getTile(0, 0)._worldPosition, Quaternion.identity).
-                    GetComponent<Player>());
-                    _map.getTile(0, 0).registerPlayer(_players[0]);
-                    _players[0]._currentTile = _map.getTile(0,0);
-
-                    break;
-                case 1:
-                    _players.Add(Instantiate(_pref_player, _map.getTile(7, 7)._worldPosition, Quaternion.identity).
-                    GetComponent<Player>());
-                    _map.getTile(7, 7).registerPlayer(_players[1]);
-                    _players[1]._currentTile = _map.getTile(7, 7);
-
-                    break;
-                default:
-                    break;
-            }
+            intVector playerPos = getNextPlayerTilePos();
+            var tileToSpawnOn = _map.getTile(playerPos.x, playerPos.y);
+            var playerObject = Instantiate(_pref_player, new Vector2(0,0), Quaternion.identity);
+            var player = playerObject.GetComponent<Player>();
+            _players.Add(player);
+            player.spawnOn(tileToSpawnOn);
         }
+    }
+
+    private intVector getNextPlayerTilePos()
+    {
+        intVector result = new intVector(0, 0);
+        switch (_currentPlayers)
+        {
+            case 0:
+                result = new intVector(0, 0);
+                break;
+
+            case 1:
+                result = new intVector(7, 7);
+                break;
+        }       
+        _currentPlayers++;
+        return result;
     }
 }

@@ -11,7 +11,7 @@ public class Tile : MonoBehaviour
     public Vector2 _matrixPosition;
     public SpriteRenderer _renderer;
 
-    List<Player> _playersOnTile = new List<Player>();
+    public List<Player> _playersOnTile = new List<Player>();
 
     private static Color _marked = Color.green; //new Color(255, 100, 125);
     private static Color _unmarked = Color.white;//new Color(255, 255, 255);
@@ -33,6 +33,14 @@ public class Tile : MonoBehaviour
     public void unregisterPlayer(Player player)
     {
         _playersOnTile.Remove(player);
+    }
+
+    internal bool isAdjacentTo(Tile tile)
+    {
+        var xDifference = Math.Abs(_matrixPosition.x - tile._matrixPosition.x);
+        var yDifference = Math.Abs(_matrixPosition.y - tile._matrixPosition.y);
+        if (xDifference < 2 && yDifference < 2) return true;
+        return false;
     }
 
     public void demark()

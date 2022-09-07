@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Prefabs : MonoBehaviour
 {
-    [SerializeField] public GameObject prefab_ActMoveDisplay;
+    [SerializeField] public GameObject prefab_moveBtn;
     [SerializeField] public GameObject prefab_ConfirmBtn;
+    [SerializeField] public GameObject prefab_simpleAttackBtn;
+    
 
 
     public static Prefabs Instance { get; private set; }

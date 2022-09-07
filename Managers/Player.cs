@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
             GameObject btn = actionCapability.getActionDisplayObject();
             _actionCapabilityBtns.Add(btn);
             btn.SetActive(false);
-
         }
     }
 
@@ -56,6 +55,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    internal void spawnOn(Tile tileToSpawnOn)
+    {
+        tileToSpawnOn.registerPlayer(this);
+        _currentTile = tileToSpawnOn;
+        transform.position = tileToSpawnOn._worldPosition;        
+    }
+
     internal void undisplayPossibleActions()
     {
         foreach (GameObject actionBtn in _actionCapabilityBtns)
@@ -67,5 +73,11 @@ public class Player : MonoBehaviour
     public void setPossibleActions()
     {
         _possibleActions.Add(new Move_Capability());
+    }
+
+    public void getHit(int damage)
+    {
+        _health -= damage;
+        Debug.Log("Player was hit");
     }
 }

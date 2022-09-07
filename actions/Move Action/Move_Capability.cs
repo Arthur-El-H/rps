@@ -14,7 +14,7 @@ public class Move_Capability : IActionCapability
     public Move_Capability()
     {
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-        _pref_actionDisplay = Prefabs.Instance.prefab_ActMoveDisplay;
+        _pref_actionDisplay = Prefabs.Instance.prefab_moveBtn;
         _moveBtn = GameObject.Instantiate(_pref_actionDisplay, _canvas.transform);
         //TODO: ...
         _moveBtn.GetComponent<Button>().onClick.AddListener(delegate 

@@ -31,10 +31,6 @@ public class TurnBuilder
         //}
     }
 
-    private void initPlayerTurnBuilding(Player player)
-    {
-        new PlayerTurnBuilder(this, player).init();
-    }
 
     public void addPlayersTurn(Queue<IAction> actionsOfPlayer)
     {
@@ -48,6 +44,11 @@ public class TurnBuilder
         {
             initPlayerTurnBuilding(_players[1]);
         }
+    }
+
+    private void initPlayerTurnBuilding(Player player)
+    {
+        new PlayerTurnBuilder(this, player).init();
     }
 
     private bool isEveryTurnSetAlready()

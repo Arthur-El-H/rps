@@ -7,9 +7,9 @@ public class ActionInput : IInput
     public const char _type = InputManager.actionInputType;
     public IActionBuilder _actionBuilder;
 
-    public ActionInput(Move_Builder moveActionBuilder)
+    public ActionInput(IActionBuilder actionBuilder)
     {
-        _actionBuilder = moveActionBuilder;
+        _actionBuilder = actionBuilder;
     }
 
     public char getInputType()
