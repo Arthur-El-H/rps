@@ -6,6 +6,7 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     Tile[,] _tilesMatrix;
+    int _currentAmountOfPlayers;
 
     [SerializeField] int _length = 8;
     [SerializeField] int _height = 8;
@@ -52,5 +53,22 @@ public class Map : MonoBehaviour
     public Tile getTile(int xValue, int yValue)
     {
         return _tilesMatrix[xValue, yValue];
+    }
+
+    public intVector getNextPlayerTilePos()
+    {
+        intVector result = new intVector(0, 0);
+        switch (_currentAmountOfPlayers)
+        {
+            case 0:
+                result = new intVector(0, 0);
+                break;
+
+            case 1:
+                result = new intVector(7, 7);
+                break;
+        }
+        _currentAmountOfPlayers++;
+        return result;
     }
 }

@@ -6,14 +6,13 @@ using UnityEngine;
 public class TurnBuilder
 {
     private Turn _turn;
-    private IngameManager _ingameManager;
-    private List<Player> _players;
+    private Player _player;
     List<Queue<IAction>> _turnToBuild;
 
-    public TurnBuilder(List<Player> players, IngameManager ingameManager)
+
+    public TurnBuilder(Player player)
     {
-        _ingameManager = ingameManager;
-        _players = players;
+        _player = player;
     }
 
     public void init()
@@ -22,7 +21,7 @@ public class TurnBuilder
         int amountOfTurnsAdded = _turnToBuild.Count;
 
         //For now only one player
-        initPlayerTurnBuilding(_players[0]);
+        initPlayerTurnBuilding(_player);
 
         //TODO: Implement for all players later
         //foreach (var player in _players)
@@ -42,17 +41,25 @@ public class TurnBuilder
         }
         else
         {
-            initPlayerTurnBuilding(_players[1]);
+            //initPlayerTurnBuilding(_players[1]);
         }
     }
 
     private void initPlayerTurnBuilding(Player player)
     {
-        new PlayerTurnBuilder(this, player).init();
+        var newTurn = new PlayerTurnBuilder(this, player);
+        newTurn.init();
+        newTurn.registerAssignedTurn(this);
     }
 
     private bool isEveryTurnSetAlready()
     {
-        return _turnToBuild.Count >= _players.Count;
+        //return _turnToBuild.Count >= _players.Count;
+        return true;
+    }
+
+    internal Turn getTurn()
+    {
+        return new Turn(_turnToBuild);
     }
 }

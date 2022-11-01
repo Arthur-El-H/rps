@@ -12,11 +12,31 @@ public class PlayerTurnBuilder
 
     public Queue<IAction> _playerTurn;
 
+    public Action<PlayerTurnBuilder> ActionBuildingCancelled;
+    public Action<PlayerTurnBuilder> ActionBuildingConfirmed;
+
+    public void subscribeToConfirmation(Action<PlayerTurnBuilder> action)
+    {
+        ActionBuildingConfirmed += action;
+    }
+    public void unsubscribeToConfirmation(Action<PlayerTurnBuilder> action)
+    {
+        ActionBuildingConfirmed -= action;
+    }
+    public void subscribeToCancellation(Action<PlayerTurnBuilder> action)
+    {
+        ActionBuildingCancelled += action;
+    }
+    public void unsubscribeToCancellation(Action<PlayerTurnBuilder> action)
+    {
+        ActionBuildingCancelled -= action;
+    }
+
     public PlayerTurnBuilder(TurnBuilder turnBuilder, Player player)
     {
-        _turnBuilder = turnBuilder;
+        //_turnBuilder = turnBuilder;
         _player = player;
-        _player._maxActionsPerTurn = 2;
+        //_player._maxActionsPerTurn = 2;
         _playerTurn = new Queue<IAction>();
         //TODO get amountOfAction und amountOfActionALlowed
     }
@@ -47,6 +67,12 @@ public class PlayerTurnBuilder
         _player.displayPossibleActions();
         InputManager.subscribeToActionBtnClicked(handleActionInput);
     }
+
+    internal void registerAssignedTurn(TurnBuilder turnBuilder)
+    {
+
+    }
+
     private void handleActionInput(IInput input)
     {
         _player.undisplayPossibleActions();

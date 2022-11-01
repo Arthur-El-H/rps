@@ -7,6 +7,7 @@ public class Move: IAction
 {
     Player _player;
     public List<Tile> _goals;
+    public const int _code = 1;
 
     public void unmarkTiles()
     {
